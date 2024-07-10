@@ -1,5 +1,6 @@
 import json
 import os
+import argparse
 from PIL import Image, ImageDraw
 
 # Function to convert a matrix to an image with a grid
@@ -66,8 +67,11 @@ def json_to_images(json_file, output_dir, hex_colors):
 
 # Example usage
 if __name__ == "__main__":
-    json_file = '0a938d79.json'  # Update this path to your JSON file
-    output_dir = '.'  # Update this to your desired output directory
+    parser = argparse.ArgumentParser(description='Process a JSON file to generate images.')
+    parser.add_argument('json_file', help='The input JSON file')
+    args = parser.parse_args()
+    
+    output_dir = os.path.splitext(os.path.basename(args.json_file))[0]
     hex_colors = {
         0: "#000000", # Black
         1: "#3172D2", # Blue  
@@ -81,4 +85,4 @@ if __name__ == "__main__":
         9: "#7C1C28", # Dark Red
     }
     
-    json_to_images(json_file, output_dir, hex_colors)
+    json_to_images(args.json_file, output_dir, hex_colors)
